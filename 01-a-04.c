@@ -11,11 +11,19 @@ int main(void){
   int board[3][3] = {}; //0で初期化
   int turn = 1,result;
 
-  for(int i=0;i<9;i++){ //最大9回処理を実行するため
+  while(1){ //処理の回数は最大9回ではあるが、問題により無限ループと定められているため
     mark_board(board,turn);
     print_board(board);
-    
+    result = judge(board);
+
     if(result == 1){
+      printf("Oの勝ちです\n");
+      break;
+    }else if(result == -1){
+      printf("Xの勝ちです\n");
+      break;
+    }
+
     if(turn == 1){
       turn = -1;
     }else{
@@ -73,4 +81,78 @@ void print_board(int board[3][3]){
     }
     putchar('\n');
   }
+}
+
+int judge(int board[3][3]){
+  int flug = 0 ; //勝敗を記録
+  int tmp[3]; //結果一時保存用
+  int zeroFlg = 0; //ゼロ発見用
+
+  for(int select=0;select<4;select++){ //ルート探索
+   
+    switch(select){
+
+      case 0: //横探索
+        for(int i=0;i<3;i++){
+          for(int j=0;j<3;j++){
+            tmp[j]=board[i][j];
+          }
+          if(tmp[0]==tmp[1]&&tmp[1]==tmp[2]){
+            flug = tmp[0];
+            break;
+          }
+        }
+        break;
+
+      case 1: //縦探索
+        for(int i=0;i<3;i++){
+          for(int j=0;j<3;j++){
+            tmp[j]=board[j][i];
+          }
+          if(tmp[0]==tmp[1]&&tmp[1]==tmp[2]){
+            flug = tmp[0];
+            break;
+          }
+        }
+        break;
+
+      case 2: //斜め探索1
+        for(int i=0;i<3;i++){
+          tmp[i]=board[i][i];
+        }
+        if(tmp[0]==tmp[1]&&tmp[1]==tmp[2]){
+          flug = tmp[0];
+          break;
+        }
+        break;
+
+      case 3: //斜め探索2
+        for(int i=0;i<3;i++){
+          tmp[i]=board[i][3-(i+1)];
+        }
+        if(tmp[0]==tmp[1]&&tmp[1]==tmp[2]){
+          flug = tmp[0];
+          break;
+        }
+        break;
+
+    }
+
+  }
+
+  for(int i=0;i<3;i++){
+    for(int j=0;j<3;j++){
+
+      if(board[i][j]==0){
+        zeroFlg=1; //ゼロが見つかった場合に1にする
+      }
+
+    }
+  }
+
+  if(flug==0&&zeroFlg==0){
+    flug=-2;
+  }
+
+  return flug;
 }
