@@ -93,102 +93,35 @@ void print_board(int board[15][15]) {
 
 int judge(int board[15][15]) {
 	int flug = 0; //勝敗を記録
-	int tmp[15]; //結果一時保存用
 	int zeroFlg = 0; //ゼロ発見用
-	int flug1 = 0; //比較用フラグ(失敗した場合のみ1)
 
-	for (int select = 0; select < 4; select++) { //ルート探索
 
-		switch (select) {
 
-		case 0: //横探索
-			for (int i = 0; i < 15; i++) {
-				for (int j = 0; j < 15; j++) {
-					tmp[j] = board[i][j];
-				}
-				for (int k = 1; k < 15; k++) { //比較用
-					if (tmp[k - 1] != tmp[k]) {
-						flug1 = 1;
-						break;
-					}
-					else {
-						flug1 = 0;
-						continue;
-					}
-				}
-				if (flug1 == 0) {
-					flug = tmp[0];
-					break;
-				}
-			}
-			break;
-
-		case 1: //縦探索
-			for (int i = 0; i < 15; i++) {
-				for (int j = 0; j < 15; j++) {
-					tmp[j] = board[j][i];
-				}
-				for (int k = 1; k < 15; k++) { //比較用
-					if (tmp[k - 1] != tmp[k]) {
-						flug1 = 1;
-						break;
-					}
-					else {
-						flug1 = 0;
-						continue;
-					}
-				}
-				if (flug1 == 0) {
-					flug = tmp[0];
-					break;
-				}
-			}
-			break;
-
-		case 2: //斜め探索1
-			for (int i = 0; i < 15; i++) {
-				tmp[i] = board[i][i];
-			}
-			for (int k = 1; k < 15; k++) { //比較用
-				if (tmp[k - 1] != tmp[k]) {
-					flug1 = 1;
-					break;
-				}
-				else {
-					flug1 = 0;
-					continue;
-				}
-			}
-			if (flug1 == 0) {
-				flug = tmp[0];
+	for (int i = 0; i < 11; i++) {
+		for (int j = 0; j < 11; j++) {
+			if ((board[i][j] == 1 && board[i][j + 1] == 1 && board[i][j + 2] == 1 && board[i][j + 3] == 1 && board[i][j + 4] == 1) || (board[i][j] == 1 && board[i + 1][j] == 1 && board[i + 2][j] == 1 && board[i + 3][j] == 1 && board[i + 4][j] == 1) || (board[i][j] == 1 && board[i + 1][j + 1] == 1 && board[i + 2][j + 2] == 1 && board[i + 3][j + 3] == 1 && board[i + 4][j + 4] == 1)) {
+				flug = 1;
 				break;
 			}
-			break;
-
-		case 3: //斜め探索2
-			for (int i = 0; i < 15; i++) {
-				tmp[i] = board[i][15 - (i + 1)];
-			}
-			for (int k = 1; k < 15; k++) { //比較用
-				if (tmp[k - 1] != tmp[k]) {
-					flug1 = 1;
-					break;
-				}
-				else {
-					flug1 = 0;
-					continue;
-				}
-			}
-			if (flug1 == 0) {
-				flug = tmp[0];
+			else if ((board[i][j] == -1 && board[i][j + 1] == -1 && board[i][j + 2] == -1 && board[i][j + 3] == -1 && board[i][j + 4] == -1) || (board[i][j] == -1 && board[i + 1][j] == -1 && board[i + 2][j] == -1 && board[i + 3][j] == -1 && board[i + 4][j] == -1) || (board[i][j] == -1 && board[i + 1][j + 1] == -1 && board[i + 2][j + 2] == -1 && board[i + 3][j + 3] == -1 && board[i + 4][j + 4] == -1)) {
+				flug = -1;
 				break;
 			}
-			break;
-
 		}
-
 	}
-
+	for (int i = 14; i >= 0; i--) {
+		for (int j = 0; j < 15; j++) {
+			if (board[i][j] == 1 && board[i - 1][j + 1] == 1 && board[i - 2][j + 2] == 1 && board[i - 3][j + 3] == 1 && board[i - 4][j + 4] == 1) {
+				flug = 1;
+				break;
+			}
+			else if (board[i][j] == -1 && board[i - 1][j + 1] == -1 && board[i - 2][j + 2] == -1 && board[i - 3][j + 3] == -1 && board[i - 4][j + 4] == -1) {
+				flug = -1;
+				break;
+			}
+		}
+	}
+	
 	for (int i = 0; i < 15; i++) {
 		for (int j = 0; j < 15; j++) {
 
