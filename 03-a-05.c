@@ -10,10 +10,9 @@ int main(){
     int goukei;
     int i;
 
-    //printf("人数入力");
+    
     scanf("%d",&nin); //nin → &nin
     for(i=0;i<nin;i++){
-        //printf("素点");
         scanf("%d",&data[i]);
     }
 
