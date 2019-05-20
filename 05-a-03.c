@@ -1,28 +1,69 @@
-//構造体
-//2019/05/15 17:34
-//u306065
+// //構造体
+// //2019/05/15 17:34
+// //u306065
 #include<stdio.h>
 #include<math.h>
+
 struct data{
-  double pts[3][2];
+//   double pts[3][2];
+
+  double x;
+  double y;
 };
-bool judge(struct data);
+double calc(struct data pts[3]);
 
 int main(){
-  struct data pts;
-  bool judge;
+  struct data pts[3];
+  int px,py;
 
   //入力
   for(int i = 0;i < 3;i++){
     printf("P%dのX座標:",i);
-    scanf("%d",&data.pts[i][0]);
+    scanf("%d",&px);
     printf("     Y座標:");
-    scanf("%d",&data.pts[i][1]);
+    scanf("%d",&py);
+    pts[i].x=px;
+    pts[i].y=py;
   }
 
-  //判定
-  if((judge(pts))==false){
+  // int res = calc(pts);
+  double res = calc(pts);
+  if(res == -1){
     printf("計算不能\n");
+  }else{
+    printf("\n Distance is %lf\n",res);
   }
+  return 0;
+}
+
+double calc(struct data pts[3]){
+  double x,y,z,tmp;
+  
+  //三角形の成立条件
+  // for(int i=0;i<3;i++){
+  //   if(i<2){
+  //     tmp = (pts[i+1].x-pts[i].x)*(pts[i+1].x-pts[i].x)+(pts[i+1].y-pts[i].y)*(pts[i+1].y-pts[i].y);
+  //     printf("ptslen[%d]=%lf\n",i,tmp);
+  //     ptslen[i] = sqrt(tmp);
+  //   }else if(i==2){
+  //     tmp = (pts[i].x-pts[0].x)*(pts[i].x-pts[0].x)+(pts[i].y-pts[0].y)*(pts[i].y-pts[0].y);
+  //     printf("ptslen[%d]=%lf\n",i,tmp);
+  //     ptslen[i] = sqrt(tmp);
+  //   }
+  // }
+
+  x = sqrt((pts[1].x-pts[0].x)*(pts[1].x-pts[0].x)+(pts[1].y-pts[0].y)*(pts[1].y-pts[0].y));
+  y = sqrt((pts[2].x-pts[1].x)*(pts[2].x-pts[1].x)+(pts[2].y-pts[1].y)*(pts[2].y-pts[1].y));
+  z = sqrt((pts[0].x-pts[2].x)*(pts[0].x-pts[2].x)+(pts[0].y-pts[2].y)*(pts[0].y-pts[2].y));
+
+  if( x + y > z && y + z > x && x + z > y ){
+    tmp = x + y + z;
+    return sqrt(tmp);
+  }else{
+    return -1;
+  }
+
+}
+  
 
   
