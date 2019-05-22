@@ -1,0 +1,90 @@
+Script started on Tue May 21 11:18:27 2019
+u306065@cse-ssh2[31]: cat 05-a-03.c
+// //構造体
+// //2019/05/15 17:34
+// //u306065
+#include<stdio.h>
+#include<math.h>
+
+struct data{
+//   double pts[3][2];
+
+  double x;
+  double y;
+};
+double calc(struct data pts[3]);
+
+int main(){
+  struct data pts[3];
+  int px,py;
+
+  //入力
+  for(int i = 0;i < 3;i++){
+    printf("P%dのX座標:",i);
+    scanf("%d",&px);
+    printf("    Y座標:");
+    scanf("%d",&py);
+    pts[i].x=px;
+    pts[i].y=py;
+  }
+
+  // int res = calc(pts);
+  double res = calc(pts);
+  if(res == -1){
+    printf("計算不能\n");
+  }else{
+    printf("\n Distance is %lf\n",res);
+  }
+  return 0;
+}
+
+double calc(struct data pts[3]){
+  double x,y,z,tmp;
+  
+  //三角形の成立条件
+  x = sqrt((pts[1].x-pts[0].x)*(pts[1].x-pts[0].x)+(pts[1].y-pts[0].y)*(pts[1].y-pts[0].y));
+  y = sqrt((pts[2].x-pts[1].x)*(pts[2].x-pts[1].x)+(pts[2].y-pts[1].y)*(pts[2].y-pts[1].y));
+  z = sqrt((pts[0].x-pts[2].x)*(pts[0].x-pts[2].x)+(pts[0].y-pts[2].y)*(pts[0].y-pts[2].y));
+
+  if( x + y > z && y + z > x && x + z > y ){
+    tmp = x + y + z;
+    return tmp;
+  }else{
+    return -1;
+  }
+
+}
+  
+
+  
+u306065@cse-ssh2[32]: gcc -lm 05-a-03.txt
+u306065@cse-ssh2[33]: a.out
+P0のX座標:0
+    Y座標:0
+P1のX座標:0
+    Y座標:0
+P2のX座標:0
+    Y座標:0
+計算不能
+u306065@cse-ssh2[34]: a.out
+P0のX座標:-1
+    Y座標:-1
+P1のX座標:0
+    Y座標:0
+P2のX座標:-1
+    Y座標:0
+
+ Distance is 3.414214
+u306065@cse-ssh2[35]: a.out
+P0のX座標:1
+    Y座標:1
+P1のX座標:1
+    Y座標:0
+P2のX座標:0
+    Y座標:0
+
+ Distance is 3.414214
+u306065@cse-ssh2[36]: exit
+exit
+
+Script done on Tue May 21 11:20:35 2019

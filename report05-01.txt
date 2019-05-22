@@ -1,0 +1,68 @@
+Script started on Mon May 20 17:29:36 2019
+u306065@imac-203[31]: cat 05-a-01.c
+//構造体
+//2019/05/15 16:44
+//u306065
+
+#include <stdio.h>
+
+struct student {
+  int id;
+  char name[20];
+  double height;
+  double weight;
+};
+
+int main(){
+  struct student gakusei[5];
+  int i;
+
+  printf("構造体配列のサイズ: %d Byte\n",(int)sizeof(gakusei));
+  for(i=0;i<5;i++){
+    printf("学生番号:");
+    scanf("%d",&gakusei[i].id);
+    printf("氏名:");
+    scanf("%s",gakusei[i].name);
+    printf("身長:");
+    scanf("%lf",&gakusei[i].height);
+    printf("体重:");
+    scanf("%lf",&gakusei[i].weight);
+  }
+  for(i=0;i<5;i++){
+    printf("学生番号:%d 氏名:%s 身長:%lf cm 体重:%lf cm\n",
+    gakusei[i].id,gakusei[i].name,gakusei[i].height,gakusei[i].weight);
+  }
+  return 0;
+}
+u306065@imac-203[32]: gcc -Wall 05-a-01.c
+u306065@imac-203[33]: a.out
+構造体配列のサイズ: 200 Byte
+学生番号:306001
+氏名:阿部
+身長:178.5
+体重:72.0
+学生番号:306011
+氏名:佐藤
+身長:168.0
+体重:55.5
+学生番号:306022
+氏名:鈴木
+身長:163.5
+体重:82.0
+学生番号:306033
+氏名:高橋
+身長:185.0
+体重:76.5
+学生番号:306044
+氏名:渡辺
+身長:175.0
+体重:64.0
+学生番号:306001 氏名:阿部 身長:178.500000 cm 体重:72.000000 cm
+学生番号:306011 氏名:佐藤 身長:168.000000 cm 体重:55.500000 cm
+学生番号:306022 氏名:鈴木 身長:163.500000 cm 体重:82.000000 cm
+学生番号:306033 氏名:高橋 身長:185.000000 cm 体重:76.500000 cm
+学生番号:306044 氏名:渡辺 身長:175.000000 cm 体重:64.000000 cm
+u306065@imac-203[34]: exit
+exit
+
+Script done on Mon May 20 17:32:59 2019
