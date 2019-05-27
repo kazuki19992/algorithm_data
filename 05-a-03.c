@@ -20,15 +20,7 @@ int main(){
   for(int i = 0;i < 3;i++){
     printf("P%dのX座標:",i);
     scanf("%d",&px);
-<<<<<<< HEAD
-<<<<<<< HEAD
     printf("    Y座標:");
-=======
-    printf("     Y座標:");
->>>>>>> 4589bec22451cbdeffadf6e52f4c2d3b64e981e4
-=======
-    printf("     Y座標:");
->>>>>>> origin/master
     scanf("%d",&py);
     pts[i].x=px;
     pts[i].y=py;
@@ -66,15 +58,7 @@ double calc(struct data pts[3]){
 
   if( x + y > z && y + z > x && x + z > y ){
     tmp = x + y + z;
-<<<<<<< HEAD
-<<<<<<< HEAD
     return tmp;
-=======
-    return sqrt(tmp);
->>>>>>> 4589bec22451cbdeffadf6e52f4c2d3b64e981e4
-=======
-    return sqrt(tmp);
->>>>>>> origin/master
   }else{
     return -1;
   }
