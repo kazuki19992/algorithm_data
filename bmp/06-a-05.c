@@ -40,14 +40,14 @@ int main(){
   }
 
   //バイナリモードで書き込むファイルを開く
-  fp_out = fopen("red.bmp","wb");
+  fp_out = fopen("red_M.bmp","wb");
 
   //ビットマップヘッダの書き込み
   writeBMPHeader(fp_out,height,width);
 
-  //画像データの書き込み
+  //画像データの書き込み (ミラー)
   for( y = 0; y < height; y++){
-    for( x = 0; x < width; x++){
+    for( x = width-1; x >= 0; x--){
       fwrite(&b[y][x],sizeof(b[y][x]),1,fp_out);
       fwrite(&g[y][x],sizeof(g[y][x]),1,fp_out);
       fwrite(&r[y][x],sizeof(r[y][x]),1,fp_out);
