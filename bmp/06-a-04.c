@@ -40,7 +40,7 @@ int main(){
   }
 
   //バイナリモードで書き込むファイルを開く
-  fp_out = fopen("red.bmp","wb");
+  fp_out = fopen("red__.bmp","wb");
 
   //ビットマップヘッダの書き込み
   writeBMPHeader(fp_out,height,width);
