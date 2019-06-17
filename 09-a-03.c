@@ -6,58 +6,60 @@
 
 void bubble(int data_bub[],int num);
 void swap(int *a,int *b);
-void quick(int data_q[],int left,int right,int num);
-int comp_bub[5] = {0}, comp_q[5] = {0}, swap_bub[5] = {0}, swap_q[5] = {0};
+void quick(int data_q[],int left,int right);
 
 int main(){
-    int i,data_bub[100],data_q[100],data[100];
+    int i,data_bub[80000],data_q[80000],data[80000];
     int num = 20;
     int left = 0,right;
+    time_t start_b[5],start_q[5],end_b[5],end_q[5];
     
     srand(time(NULL));
 
-    
 
-    for(i = 0;i < 100;i++){
+    for(i = 0;i < 80000;i++){
         data[i] = rand();
     }
 
-    for(num = 20; num <= 100; num+=20){
+    i = 0;
+    for(num = 5000; num <= 80000; num*=2,i++){
         right = num-1;
 
         //データのコピー
-        for(i = 0; i < num; i++){
-            data_bub[i] = data[i];
-            data_q[i] = data[i];
+        for(int j = 0; j < num; j++){
+            data_bub[j] = data[j];
+            data_q[j] = data[j];
         }
-
+        start_b[i] = clock();
         bubble(data_bub,num);
-        quick(data_q,left,right,num);        
+        end_b[i] = clock();
+
+        start_q[i] = clock();
+        quick(data_q,left,right);
+        end_q[i] = clock();
     }
 
     //表示
-    num = 20;
+    num = 5000;
     printf("<クイックソート法>\n");
-    for( i = 0; i < 5; i++, num+=20){
+    for( i = 0; i < 5; i++, num*=2){
         printf(" データ数：%d\n",num);
-        printf(" 比較回数：%d回\n",comp_q[i]);
-        printf(" 交換回数：%d回\n",swap_q[i]);
+        printf(" 計算時間：%.3f秒\n",(float)(end_q[i]-start_q[i])/CLOCKS_PER_SEC);
         putchar('\n');
     }
 
-    num = 20;
+    num = 5000;
     printf("<バブルソート法>\n");
-    for( i = 0; i < 5; i++, num+=20){
+    for( i = 0; i < 5; i++, num*=2){
         printf(" データ数：%d\n",num);
-        printf(" 比較回数：%d回\n",comp_bub[i]);
-        printf(" 交換回数：%d回\n",swap_bub[i]);
+        printf(" 計算時間：%.3f秒\n",(float)(end_b[i]-start_b[i])/CLOCKS_PER_SEC);
         putchar('\n');
     }
 
     return 0;
 }
 
-void quick(int a[],int left,int right,int num){
+void quick(int a[],int left,int right){
     int pl = left;
     int pr = right;
     int pivot; 
@@ -66,27 +68,23 @@ void quick(int a[],int left,int right,int num){
 
     do{
         while(a[pl] < pivot){
-            comp_q[(num/20)-1]++;
             pl++;
         }
         while(a[pr] > pivot){
-            comp_q[(num/20)-1]++;
             pr--;
         }
         if(pl <= pr){
             swap( &a[pl],&a[pr] );
-            swap_q[(num/20)-1]++;
             pl++;
             pr--;
         }
-        comp_q[(num/20)-1]++;
     }while( pl <= pr);
 
     if( left < pr ){
-        quick(a,left,pr,num);
+        quick(a,left,pr);
     }
     if( pl < right ){
-        quick(a,pl,right,num);
+        quick(a,pl,right);
     }
 }
 
@@ -95,11 +93,7 @@ void bubble(int data_bub[],int num){
     for(i = 0;i < num-1;i++){
         for(j = num-1;j > i;j--){
             if(data_bub[j-1] > data_bub[j]){
-                comp_bub[(num/20)-1]++;
                 swap(&data_bub[j-1],&data_bub[j]);
-                swap_bub[(num/20)-1]++;
-            }else{
-                comp_bub[(num/20)-1]++;
             }
         }
     } 
