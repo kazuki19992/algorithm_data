@@ -12,10 +12,10 @@ int bin_search(int a[],int n,int key);
 int lin_search(int a[],int n,int key);
 
 int main(){
-    int i;
+    int i,left = 0,right;
     int seisu[MAX];
     int kosu,ky,idx0,idx1;
-    char fname[FMUX];
+    char fname[FMAX];
     FILE *fp;
 
     kosu = MAX; //データ個数をkosuに代入
@@ -37,15 +37,16 @@ int main(){
     for(i = 0; i < kosu; i++){
         fscanf(fp,"%d",&seisu[i]);
     }
+    right = kosu - 1;
     
     printf("Number to search:");
     scanf("%d",&ky);
 
-    idx0 = lin_search(seisu,MAX,ky);
+    idx0 = lin_search(seisu,kosu,ky);
     
-    quick(seisu);
+    quick(seisu,left,right);
 
-    idx1 = bin_search(seisu,MAX,ky);
+    idx1 = bin_search(seisu,kosu,ky);
 
     printf("\n計算回数表示\n");
 
@@ -94,29 +95,14 @@ void quick(int a[],int left,int right){
     }
 }
 
-
-
-
-void insertion(int a[],int n){
-    int i,j,tmp;
-    for(i = 1;i <= n-1;i++){
-        tmp = a[i];
-        j = i;
-        while((a[j-1]>tmp) && (j>0)) {
-            a[j] = a[j-1];
-            j--;
-        }
-        a[j] = tmp;
-    }
-}
-
 int bin_search(int a[],int n,int key){
-    int pl = 0,pr = NUM - 1,pc;
+    int pl = 0,pr = MAX - 1,pc,cnt = 0;
 
     do {
         pc = ( pl + pr) / 2;
+        cnt++;
         if ( a[pc] == key){
-            return pc;
+            return cnt;
         }else if(a[pc] < key){
             pl = pc+1;
         }else{
@@ -127,7 +113,16 @@ int bin_search(int a[],int n,int key){
     return -1;
 }
 
-
+int lin_search(int a[],int n,int key){
+    int cnt = 0;
+    for(int i = 0; i < n; i++){
+        cnt++;
+        if(a[i] == key){
+            return cnt;
+        }
+    }
+    return -1;
+}
 
 
 
