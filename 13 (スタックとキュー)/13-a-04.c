@@ -4,15 +4,15 @@
 
 #include<stdio.h>
 
-#define STACK_SIZE 5                 // スタックの最大データ数
-#define NO_DATA -1                   // データなし
+#define STACK_SIZE 5    // スタックの最大データ数
+#define NO_DATA -1      // データなし
 
-int stack[STACK_SIZE] = { NO_DATA};  // スタックの実態の配列
-int sp = -1;                         // スタックポインタ(トップ)
+int stack[STACK_SIZE];  // スタックの実態の配列
+int sp = -1;            // スタックポインタ(トップ)
 
-int Push(int data);                  // プッシュ
-int Pop();                           // ポップ
-void ShowStack();                    // スタック表示
+int Push(int data);     // プッシュ
+int Pop();              // ポップ
+void ShowStack();       // スタック表示
 
 int main() {
     int data,select;
@@ -27,7 +27,7 @@ int main() {
                 scanf("%d",&data);      // Pushするデータの入力
 
                 if(Push(data) == NO_DATA){
-                    printf("Stack Push is failed!\n");
+                    printf("Stack Overflow!\n");
                 }else{
                     ShowStack();
                 }
@@ -35,11 +35,9 @@ int main() {
             }
 
             case 2: {       // Pop
-                int pop = Pop();
-                if(pop == NO_DATA){
+                if(Pop() == NO_DATA){
                     printf("Stack Pop is failed!\n");
                 }else{
-                    printf("pop data is %d\n",pop);
                     ShowStack();
                 }
                 break;
@@ -63,7 +61,6 @@ void ShowStack(){
 int Push(int data){
     sp++;   // スタックポインタ +1
     if(sp >= STACK_SIZE){
-        printf("Stack Overflow!\n");
         sp--;
         return -1;
     }else{
