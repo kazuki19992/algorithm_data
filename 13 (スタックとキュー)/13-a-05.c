@@ -34,29 +34,6 @@ void ShowQueue(){
 
 int EnQueue(int data){
     int temp;
-    tmp = rear;
-    rear++;                         // リア +1
-    if (rear >= QUEUE_SIZE){        // リングバッファ
-        rear = 0;
-    }
-    if (num >= QUEUE_SIZE){         // 配列サイズ超過
-        printf("Queue is Full!\n");
-        rear = tmp;
-        return -1;
-    }else{
-        queue[rear] = data;         
-        num++;                      // データ数+1
-        return 0;                   // 正常終了
-    }
+    temp = rear;
+    rear++;
 }
-
-int DeQueue () {
-    int tmp, data = 0;              // データ初期化
-    tmp = front;
-    front++;                        // フロント++
-
-    if ( front >= QUEUE_SIZE){
-        front = 0;                  // リングバッファ
-    }
-    if ( num == 0){
-        
