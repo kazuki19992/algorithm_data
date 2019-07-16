@@ -1,0 +1,135 @@
+Script started on Tue Jul 16 10:05:18 2019
+u306065@cse-ssh2[31]: cat 13-a-04.c
+// スタックとキュー
+// 2019/07/10
+// u306065
+
+#include<stdio.h>
+
+#define STACK_SIZE 5    // スタックの最大データ数
+#define NO_DATA -1      // データなし
+
+int stack[STACK_SIZE];  // スタックの実態の配列
+int sp = -1;            // スタックポインタ(トップ)
+
+int Push(int data);     // プッシュ
+int Pop();              // ポップ
+void ShowStack();       // スタック表示
+
+int main() {
+    int data,select;
+    
+    while(1){
+        printf("(1) Push (2) Pop (0) Exit :");
+        scanf("%d",&select);
+
+        switch(select){
+            case 1: {       // Push
+                printf("Data : ");
+                scanf("%d",&data);      // Pushするデータの入力
+
+                if(Push(data) == NO_DATA){
+                    printf("Stack Overflow!\n");
+                }else{
+                    ShowStack();
+                }
+                break;
+            }
+
+            case 2: {       // Pop
+                int temp = Pop();
+                if(temp == NO_DATA){
+                    printf("Stack Pop is failed!\n");
+                }else{
+                    printf("Pop data is %d\n",temp);
+                    ShowStack();
+                }
+                break;
+            }
+
+            case 0: {       // 終了
+                return 0;   
+            }
+        }
+    }
+}
+
+void ShowStack(){
+    printf("Stack : ");
+    for(int i = 0; i <= sp; i++){   // スタックポインタ(ボトムからトップまで表示)
+        printf("[%d]",stack[i]);
+    }
+    putchar('\n');
+}
+
+int Push(int data){
+    sp++;   // スタックポインタ +1
+    if(sp >= STACK_SIZE){
+        sp--;
+        return -1;
+    }else{
+        stack[sp] = data;   // データ代入
+        return 0;   // 正常終了
+    }
+}
+
+int Pop() {
+    int data = 0;   // データ初期化
+
+    if(sp < 0){     // スタックポインタ確認
+        printf("Stack Empty!\n");
+        return -1;
+    }else{
+        data = stack[sp];   // スタック値を代入
+        sp--;               // スタックポインタ -1
+        return data;        // 正常終了
+    }
+}u306065@cse-ssh2[32]: gcc -Wall 13-a-04.c
+u306065@cse-ssh2[33]: ./a.out
+(1) Push (2) Pop (0) Exit :1
+Data : 111
+Stack : [111]
+(1) Push (2) Pop (0) Exit :1
+Data : 222
+Stack : [111][222]
+(1) Push (2) Pop (0) Exit :1
+Data : 333
+Stack : [111][222][333]
+(1) Push (2) Pop (0) Exit :1
+Data : 444
+Stack : [111][222][333][444]
+(1) Push (2) Pop (0) Exit :1
+Data : 555
+Stack : [111][222][333][444][555]
+(1) Push (2) Pop (0) Exit :1
+Data : 666
+Stack Overflow!
+(1) Push (2) Pop (0) Exit :2
+Pop data is 555
+Stack : [111][222][333][444]
+(1) Push (2) Pop (0) Exit :2
+Pop data is 444
+Stack : [111][222][333]
+(1) Push (2) Pop (0) Exit :1
+Data : 666
+Stack : [111][222][333][666]
+(1) Push (2) Pop (0) Exit :2
+Pop data is 666
+Stack : [111][222][333]
+(1) Push (2) Pop (0) Exit :2
+Pop data is 333
+Stack : [111][222]
+(1) Push (2) Pop (0) Exit :2
+Pop data is 222
+Stack : [111]
+(1) Push (2) Pop (0) Exit :2
+Pop data is 111
+Stack : 
+(1) Push (2) Pop (0) Exit :2
+Stack Empty!
+Stack Pop is failed!
+(1) Push (2) Pop (0) Exit :0
+u306065@cse-ssh2[34]: exit
+exit
+
+Script done on Tue Jul 16 10:09:47 2019
