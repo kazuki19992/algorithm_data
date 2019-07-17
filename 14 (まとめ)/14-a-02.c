@@ -3,12 +3,15 @@
 // u306065
 
 #include<stdio.h>
-#define SIZE 1000
+#define SIZE 256
 
 typedef struct{
     char character;     // a - yのいずれかの文字を格納
     int count = 0;      // 出現回数をカウント
 }initial;
+
+void lin_search(char str[SIZE], initial data[25]);
+
 
 int main(){
     initial data[25] = {{ 'a', 0},
@@ -35,4 +38,24 @@ int main(){
                         { 'v', 0},
                         { 'w', 0},
                         { 'x', 0},
-                        { 'y', 0}}
+                        { 'y', 0}};
+
+    char str[SIZE];
+    
+
+    while(1){
+        printf("英単語を入力してください :");
+        scanf("%s",str);
+
+        if(str[0] == 'z'){
+            break;
+        }
+
+        lin_search(str, data);
+
+    }
+
+    quick(
+
+
+
