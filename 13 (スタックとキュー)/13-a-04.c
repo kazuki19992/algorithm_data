@@ -35,9 +35,11 @@ int main() {
             }
 
             case 2: {       // Pop
-                if(Pop() == NO_DATA){
+                int temp = Pop();
+                if(temp == NO_DATA){
                     printf("Stack Pop is failed!\n");
                 }else{
+                    printf("Pop data is %d\n",temp);
                     ShowStack();
                 }
                 break;
